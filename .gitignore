@@ -1,0 +1,11 @@
+.credentials
+client-secret.json
+best_model.h5
+livePhotos/.*
+__pycache__/.*
+images/training/.*
+.*pkl
+.*cfg
+python
+PyWhatKit_DB.txt
+temp*

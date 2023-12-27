@@ -1,0 +1,15 @@
+cmake
+keras
+h5py
+tensorflow
+pillow
+scipy
+numpy
+opencv-python
+playsound==1.2.2
+pywhatkit
+pywin32
+google-api-python-client
+oauth2client 
+pyqt5
+pyqt5-tools
