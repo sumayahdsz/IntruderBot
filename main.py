@@ -344,26 +344,6 @@ class AddUserWindow:
     def open_user_imgs_command(self):
         # launch a window with the folder of images used for the user
         # RETURNS None
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         # remove whitespace for the user name
         user_name = self.user_name_entry.get().strip()
         # check whether is_intruder is selected

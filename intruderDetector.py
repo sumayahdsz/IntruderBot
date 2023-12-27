@@ -153,7 +153,6 @@ class IntruderDetector(FileStorageUnit):
 
         This function returns the model's prediction and confidence of the model's prediction.
         """
-        # 
         # returns prediction and probabilty of prediction being correct
         if self.num_classes==0:
             # don't classify anything if there is no data
