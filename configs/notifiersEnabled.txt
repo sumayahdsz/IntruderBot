@@ -1,2 +1,4 @@
 VisualNotifierOn
 EmailNotifierOn
+PhoneNotifierOn
+AudioNotifierOn

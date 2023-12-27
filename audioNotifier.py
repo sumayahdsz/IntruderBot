@@ -1,5 +1,6 @@
 from notifier import Notifier, IntruderInfo
 from playsound import playsound, PlaysoundException
+# import time
 import ctypes
 
 class AudioNotifier(Notifier):
@@ -14,7 +15,10 @@ class AudioNotifier(Notifier):
         super().__init__(path_of_file_with_audio_file_path, setting_for_is_enabled, is_enabled_setting_file_path)
     
     def notify(self, intruder_info:IntruderInfo):
-        # Function called to play an audio
+        """
+        Function called to play an audio file
+        returns none
+        """
         if not self.get_enabled():
             return
         audio_file = self.get_data_list()[0]
@@ -22,7 +26,9 @@ class AudioNotifier(Notifier):
 
     @classmethod
     def play_audio_with_error_check(cls, audio_file):
-        # Helper function to play an audio. Does not check if notifier is enabled
+        """
+        Helper function to play an audio. Does not check if notifier is enabled
+        """
         try:
             # try playing the file
             playsound(audio_file)
@@ -34,3 +40,7 @@ class AudioNotifier(Notifier):
                 # Different error type (could be unsupported driver, etc.)
                 # most likely to happen only on the very first time the program runs, if at all this error occurs
                 ctypes.windll.user32.MessageBoxW(0, f"{context}", "Audio Notification Error", 0)
+        # # timing util
+        # audio_time = time.perf_counter()
+        # print(f"audio notification finished at: {audio_time} seconds")
+ 

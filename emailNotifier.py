@@ -1,4 +1,5 @@
 from time import sleep
+import tkinter
 from notifier import Notifier, IntruderInfo
 import os
 
@@ -12,7 +13,7 @@ from oauth2client import client, tools, file
 from apiclient import errors, discovery
 import base64
 from threading import Thread
-
+# import time
 
 class EmailNotifier(Notifier):
     '''
@@ -36,6 +37,9 @@ class EmailNotifier(Notifier):
         return self.get_data_list()
     
     def __set_message_reciever_details(self, message, receiver_email):
+        '''
+        Return message with reciever email set
+        '''
         message["To"] = receiver_email
         return message
         
@@ -85,18 +89,27 @@ class EmailNotifier(Notifier):
         try:
             service.users().messages().send(userId=user_id, body=message).execute()
         except errors.HttpError as error:
+            # incase there is an error, tell the user. Make the program sleep for 50 seconds while user fixes issue
+            # We have to wait for a bit so that if there is an intruder, this popup doesn't keep showing up every single second there is motion if the notifer isn't working
+            tkinter.messagebox.showerror(title="Error sending message", message=f"An error occurred: {error}")
             print('An error occurred: %s' % error)
-            sleep(100)
+            sleep(50)
     
     def __set_email_and_send_message(self, intruder_info: IntruderInfo, service, receiver_email):
+        """
+        Helper method to set email contentents and send the message
+        """
         if not receiver_email:
-                return
+            return
         message_to_send = self.__set_email_content(intruder_info)
         self.__set_message_reciever_details(message_to_send, receiver_email)
         msg_str = self.__message_to_string(message_to_send)
         self.__send_message_internal(service, "me", msg_str)
 
     def __get_credentials(self):
+        '''
+        Helper method to get credentials for sending out an email
+        '''
         # get the credentials
         credential_dir = os.path.join(os.getcwd(), '.credentials')
         if not os.path.exists(credential_dir):
@@ -119,6 +132,7 @@ class EmailNotifier(Notifier):
         '''
         if not self.get_enabled():
             return
+
         # get credentials
         credentials = self.__get_credentials()
     
@@ -129,7 +143,6 @@ class EmailNotifier(Notifier):
         # set email content and send message for each reciever email
         threads = []
         for receiver_email in self.__get_receiver_email():
-            print("hiimich")
             print(receiver_email)
             # doing this in parallel for each user to save on time
             thread = Thread(target=self.__set_email_and_send_message, args=(intruder_info, service, receiver_email,))
@@ -140,3 +153,7 @@ class EmailNotifier(Notifier):
         # so just incase there is an error in email sending, we will know immediately, before doing other things
         for thread in threads:
             thread.join()
+        
+        # timing util
+        # email_time = time.perf_counter()
+        # print(f"email finished at: {email_time} seconds")

@@ -19,6 +19,7 @@ from myColours import MY_COLOURS
 import shutil
 import re
 from enum import Enum
+import time
 
 
 lock = Lock()
@@ -923,6 +924,9 @@ def process_live_video(video, model, image_dim_width, image_dim_len, thread_queu
     # process live video
     while True:
         frame = get_frame_with_motion(video, thread_queue)
+        # timing util
+        # start_time = time.perf_counter()
+        # print(f"start time at: {start_time} seconds")
         if frame is None:
             # gui was closed
             return
