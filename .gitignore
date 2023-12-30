@@ -1,9 +1,9 @@
 .credentials
 client-secret.json
 best_model.h5
-livePhotos/.*
-__pycache__/.*
-images/training/.*
+livePhotos/*
+__pycache__/*
+images/training/*
 .*pkl
 .*cfg
 python
