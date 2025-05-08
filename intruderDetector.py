@@ -43,7 +43,7 @@ class IntruderDetector(FileStorageUnit):
         Trains the model based on provided data
         returns None
         """
-        # Total number of data points
+        # Total number of data points  
         number_of_data_points = 0
 
         # assumes only image folders are in the training image path
@@ -201,7 +201,7 @@ class IntruderDetector(FileStorageUnit):
         Returns a list of notifiers linked to this model.
         Not currently used, but kept for potential future usage and manual testing.
         """
-        return self.__notifiers_list
+        return self.__notifiers_list 
     
     def set_is_intruder_threshold(self, is_intruder_threshold):
         """
